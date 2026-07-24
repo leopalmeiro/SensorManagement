@@ -1,7 +1,7 @@
 package com.wharehouse.sensormanagement.helpers;
 
 import com.wharehouse.sensormanagement.config.SensorThresholdConfig;
-import com.wharehouse.sensormanagement.data.SensorData;
+import com.wharehouse.sensormanagement.model.SensorData;
 import com.wharehouse.sensormanagement.model.SensorType;
 import org.springframework.stereotype.Component;
 

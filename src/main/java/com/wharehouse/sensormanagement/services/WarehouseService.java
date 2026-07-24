@@ -1,6 +1,6 @@
 package com.wharehouse.sensormanagement.services;
 
-import com.wharehouse.sensormanagement.data.SensorData;
+import com.wharehouse.sensormanagement.model.SensorData;
 import com.wharehouse.sensormanagement.helpers.Helpers;
 import com.wharehouse.sensormanagement.mappers.Mappers;
 import org.slf4j.Logger;

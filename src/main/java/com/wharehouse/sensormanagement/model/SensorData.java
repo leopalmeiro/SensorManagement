@@ -1,6 +1,4 @@
-package com.wharehouse.sensormanagement.data;
-
-import com.wharehouse.sensormanagement.model.SensorType;
+package com.wharehouse.sensormanagement.model;
 
 import java.time.Instant;
 

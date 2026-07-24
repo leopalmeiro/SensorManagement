@@ -3,7 +3,7 @@ package com.wharehouse.sensormanagement.mappers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.wharehouse.sensormanagement.data.SensorData;
+import com.wharehouse.sensormanagement.model.SensorData;
 import com.wharehouse.sensormanagement.model.SensorType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
