@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.wharehouse.sensormanagement.data.SensorData;
 import com.wharehouse.sensormanagement.model.SensorType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
 import java.util.Arrays;
@@ -13,26 +15,33 @@ import java.util.stream.Collectors;
 
 public class Mappers {
 
-    public static SensorData mapperRecivedDataJsonToSensorData(String payload){
+    public static final String FAILED_TO_PARSE_JSON_PAYLOAD = "Failed to parse JSON payload";
+    private static final Logger log = LoggerFactory.getLogger(Mappers.class);
+
+    /**
+     * Method to map Received Data formated as Json to Sensor Data
+     * @param payload the JSON string containing the received sensor information
+     * @return SensorData
+     */
+    public static SensorData mapperReceivedDataJsonToSensorData(String payload) {
+        log.info("Called mapperReceivedDataJsonToSensorData method");
         try {
             ObjectMapper mapper = new ObjectMapper();
             mapper.registerModule(new JavaTimeModule());
-
-            // 2. Use readValue instead of convertValue for raw JSON Strings
-            SensorData sensorData = mapper.readValue(payload, SensorData.class);
-
-            // If you need to attach the sensorType after parsing:
-            // sensorData.setSensorType(sensorType);
-
-            return sensorData;
-
+            return mapper.readValue(payload, SensorData.class);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to parse JSON payload", e);
+            throw new RuntimeException(FAILED_TO_PARSE_JSON_PAYLOAD, e);
         }
     }
 
+    /**
+     * Method to map payload and sensor type into a Json
+     * @param payload string data formated as sensor_id=h1; value=40
+     * @param sensorType type of sensor
+     * @return string as json format
+     */
     public static String mapperReceivedDataToJsonSensorData(String payload, SensorType sensorType){
-
+        log.info("Called mapperReceivedDataToJsonSensorData method");
         Map<String, String> keyValueMap = Arrays.stream(
                 payload.split(";"))
                 .map(pair -> pair.split("="))
@@ -41,9 +50,12 @@ public class Mappers {
                         parts -> parts[1].trim()
                 ));
 
+        //get the converted information then create sensor data object
         SensorData sensorData = new SensorData(
                 keyValueMap.get("sensor_id"),
-                Double.parseDouble(keyValueMap.get("value")), Instant.now(), sensorType);
+                Double.parseDouble(keyValueMap.get("value")),
+                Instant.now(),
+                sensorType);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
@@ -53,7 +65,7 @@ public class Mappers {
         try {
             return mapper.writeValueAsString(sensorData);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to parse JSON payload", e);
         }
     }
 }
