@@ -42,6 +42,14 @@ A dedicated constants class was created to centralize reusable values and string
 
 ---
 
+### UDP Receiver Configuration
+
+The goal was to keep the configuration simple while centralizing all validation logic in a single place. This approach ensures that any validation errors are handled consistently.
+
+A new InvalidSensorDataException was introduced to represent validation failures. By handling all validation checks within the configuration layer, all related errors can be captured and propagated directly to the errorHandlingFlow, making error management more centralized and easier to maintain.
+
+---
+
 ### Data Format
 
 Based on my understanding, the incoming sensor data is **not** received in JSON format. Instead, it follows a format similar to:
