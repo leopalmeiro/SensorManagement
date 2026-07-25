@@ -75,3 +75,9 @@ Helper classes were implemented as Spring `@Component` to improve:
 - Dependency injection support
 
 The `SensorThresholdConfig` was also implemented as a Spring `@Component`, since the sensor threshold values are loaded from the application's configuration (`application.properties`).
+
+---
+### Tests Considerations
+
+- Create end-to-end (E2E) tests using Testcontainers to simulate real end-to-end calls with RabbitMQ.
+- Add end-to-end (E2E) tests to validate the UDP Receiver configuration. In this case, the best approach would be to use @SpringBootTest to load the full application context and ensure the configuration is tested in a realistic environment.
