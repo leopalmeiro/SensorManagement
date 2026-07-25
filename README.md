@@ -5,7 +5,7 @@
 The application is built using:
 
 - **Java 26**
-- **Spring Boot** (spring-boot-starter-integration, integration-ip, spring-boot-starter-amqp)
+- **Spring Boot 4.1.0** (spring-boot-starter-integration, integration-ip, spring-boot-starter-amqp)
 - **com.fasterxml.jackson** 
 - **RabbitMQ** (running in Docker container)
 
